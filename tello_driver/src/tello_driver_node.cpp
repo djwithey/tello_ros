@@ -126,12 +126,14 @@ namespace tello_driver
 
     if (!state_socket_->receiving() && !command_socket_->waiting()) {
       // First command to the drone must be "command"
+      RCLCPP_INFO(get_logger(), "Startup command...");
       command_socket_->initiate_command("command", false);
       return;
     }
 
     if (state_socket_->receiving() && !video_socket_->receiving() && !command_socket_->waiting()) {
       // Start video
+      RCLCPP_INFO(get_logger(), "Starting video...");
       command_socket_->initiate_command("streamon", false);
       return;
     }
